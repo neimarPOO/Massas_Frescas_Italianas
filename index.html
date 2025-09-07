@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descubra o mundo das massas frescas italianas. Receitas, técnicas e segredos para Ravioli, Capeletti, Talharim e Nhoque.">
+    <meta name="keywords" content="Massas Frescas, Culinária Italiana, Receitas, Ravioli, Capeletti, Talharim, Nhoque">
+    <title>Massas Frescas Italianas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;400;600&family=Rubik:wght@300;400;500&family=Story+Script&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-red: #CD212A;
+            --color-green: #009246;
+            --color-white: #F8F7F5;
+            --color-dark: #2a2a2a;
+            --color-light-gray: #ffffff;
+            --color-text: #333;
+            --color-text-light: #fff;
+            --font-logo: 'Story Script', cursive;
+            --font-heading: 'Playpen Sans', cursive;
+            --font-body: 'Rubik', sans-serif;
+            --shadow: 0 6px 15px rgba(0,0,0,0.08);
+            --shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-white);
+            line-height: 1.7;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            --color-white: #2a2a2a;
+            --color-dark: #F8F7F5;
+            --color-light-gray: #3c3c3c;
+            --color-text: #F8F7F5;
+            --color-text-light: #2a2a2a;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            color: var(--color-red);
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: var(--color-green);
+            margin: 0.75rem auto 0;
+            border-radius: 2px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .header {
+            background-color: var(--color-white);
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-logo);
+            font-size: 4.5rem;
+            font-weight: normal;
+            color: var(--color-red);
+            margin-bottom: 1rem;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .nav {
+            background-color: var(--color-red);
+            padding: 0.75rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--color-text-light);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 400;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-text-light);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #eee;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--color-light-gray);
+            border: 1px solid #eee;
+            color: var(--color-text);
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        #theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+        }
+        
+        #theme-toggle:hover {
+             transform: scale(1.1);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .massa-card {
+            background-color: var(--color-light-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .massa-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .massa-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .massa-card-content {
+            padding: 1.5rem;
+        }
+
+        .massa-card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.6rem;
+            color: var(--color-red);
+        }
+
+        .massa-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--color-green);
+            font-family: var(--font-body);
+            font-weight: 500;
+        }
+        
+        .massa-card-tags span {
+            background-color: rgba(0, 146, 70, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background-color: transparent;
+            border: 2px solid #ddd;
+            color: #555;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        body.dark-mode .filter-btn {
+            border-color: #555;
+            color: #ccc;
+        }
+        .filter-btn:hover {
+            border-color: var(--color-green);
+            color: var(--color-green);
+        }
+        .filter-btn.active {
+            background-color: var(--color-green);
+            color: #fff;
+            border-color: var(--color-green);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--color-white);
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--color-text);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+        
+        .modal-body h3 {
+            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            color: var(--color-red);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .modal-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .modal-section h4 {
+            font-family: var(--font-heading);
+            color: var(--color-text);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .modal-section h4 .modal-icon {
+            color: var(--color-green);
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        body.dark-mode .modal-section h4 {
+            border-color: #444;
+        }
+        
+        .modal-section ul, .modal-section ol {
+            padding-left: 25px;
+        }
+
+        .modal-section li {
+            margin-bottom: 0.75rem;
+            font-weight: 300;
+        }
+        
+        .portion-calculator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        body.dark-mode .portion-calculator {
+            background: #333;
+        }
+        
+        .portion-calculator label {
+            font-weight: 500;
+        }
+        
+        .portion-calculator input {
+            width: 70px;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .footer {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .footer-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo-item {
+            max-height: 60px;
+        }
+
+        .footer-cta-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cta-text {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-green);
+        }
+
+        .cta-arrow {
+            display: inline-block;
+            animation: move-arrow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes move-arrow {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(8px); }
+            100% { transform: translateX(0); }
+        }
+        
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 60px;
+            }
+
+            .header {
+                padding: 2rem 1rem;
+            }
+
+            .logo {
+                font-size: 3rem;
+                margin-bottom: 0.5rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            .intro-text {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .nav {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                width: 100%;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                border-top: 1px solid #A91A22;
+            }
+
+            .nav-list {
+                width: 100%;
+                justify-content: space-around;
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                padding: 0.5rem;
+                text-align: center;
+                font-size: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+            }
+
+            .nav-link:hover {
+                background-color: rgba(0,0,0,0.1);
+            }
+
+            .nav-link::after {
+                display: none;
+            }
+
+            .gallery-grid {
+                gap: 1.5rem;
+            }
+
+            .filters {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .modal-body h3 {
+                font-size: 2rem;
+            }
+
+            .footer-logo-item {
+                max-height: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            .nav-link {
+                font-size: 0.7rem;
+            }
+            .footer-logo-item {
+                max-height: 40px;
+            }
+            .footer-cta-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">Massas Frescas Italianas</h1>
+            <p class="intro-text">Uma viagem autêntica pela arte da pasta fatta in casa. Descubra receitas, segredos e a paixão que transforma ingredientes simples em pratos inesquecíveis.</p>
+        </div>
+        <button id="theme-toggle" aria-label="Alternar modo noturno">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </header>
+
+    <nav class="nav">
+        <ul class="nav-list">
+            <li><a href="#gallery" class="nav-link">As Massas</a></li>
+            <li><a href="#production-guide" class="nav-link">Guia de Produção</a></li>
+            <li><a href="#flavor-academy" class="nav-link">Academia do Sabor</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="gallery" class="container">
+            <h2>Nossas Estrelas</h2>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="Fácil">Fácil</button>
+                <button class="filter-btn" data-filter="Médio">Médio</button>
+                <button class="filter-btn" data-filter="Difícil">Difícil</button>
+            </div>
+            <div class="gallery-grid">
+                <!-- Cards will be injected by JavaScript -->
+            </div>
+        </section>
+
+        <section id="production-guide" class="container" style="background-color: var(--color-light-gray); border-radius: 12px; padding: 3rem 2rem; box-shadow: var(--shadow);">
+            <h2>A Arte da Massa</h2>
+            <p style="text-align:center; max-width: 800px; margin: -1rem auto 2.5rem; font-weight: 300;">Fazer massa fresca é um ritual. Siga nossa timeline para dominar cada etapa, da farinha à secagem perfeita.</p>
+            <ol style="list-style-type: none; max-width: 700px; margin: 0 auto; padding-left: 20px; position: relative; border-left: 3px solid var(--color-green);">
+                <li style="margin-bottom: 2.5rem; position: relative; padding-left: 30px;">
+                    <strong style="display: block; font-family: var(--font-heading); color: var(--color-red); font-size: 1.3rem;">1. Ingredientes (Mise en Place):</strong>
+                    Separe e pese tudo. A precisão é o primeiro segredo.
+                </li>
+                <li style="margin-bottom: 2.5rem; position: relative; padding-left: 30px;">
+                    <strong style="display: block; font-family: var(--font-heading); color: var(--color-red); font-size: 1.3rem;">2. A Massa (Impasto):</strong>
+                    Faça um "vulcão" com a farinha, adicione os ovos e misture até formar uma massa.
+                </li>
+                <li style="margin-bottom: 2.5rem; position: relative; padding-left: 30px;">
+                    <strong style="display: block; font-family: var(--font-heading); color: var(--color-red); font-size: 1.3rem;">3. O Descanso (Riposo):</strong>
+                    Sove por 10 min. Envolva em plástico e descanse por 30 min. O glúten precisa relaxar.
+                </li>
+                <li style="margin-bottom: 2.5rem; position: relative; padding-left: 30px;">
+                    <strong style="display: block; font-family: var(--font-heading); color: var(--color-red); font-size: 1.3rem;">4. Abrir a Massa (Stesura):</strong>
+                    Use um rolo ou máquina para abrir a massa na espessura desejada.
+                </li>
+                <li style="margin-bottom: 2.5rem; position: relative; padding-left: 30px;">
+                    <strong style="display: block; font-family: var(--font-heading); color: var(--color-red); font-size: 1.3rem;">5. Formato e Cozimento (Cottura):</strong>
+                    Corte no formato desejado e cozinhe em água salgada abundante até ficar 'al dente'.
+                </li>
+            </ol>
+        </section>
+
+        <section id="flavor-academy" class="container">
+            <h2>Academia do Sabor</h2>
+            <p style="text-align:center; max-width: 800px; margin: -1rem auto 2.5rem; font-weight: 300;">A harmonização eleva a experiência. Aprenda a combinar molhos, vinhos e queijos para criar o prato perfeito.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem;">
+                <div class="massa-card" style="cursor: default; transform: none; box-shadow: var(--shadow);">
+                    <div class="massa-card-content">
+                        <h3 style="font-size: 1.6rem;">Harmonização com Vinhos</h3>
+                        <p style="font-weight: 300;"><strong>Molho de tomate:</strong> Tintos de corpo médio (Chianti, Barbera).</p>
+                        <p style="font-weight: 300;"><strong>Frutos do mar:</strong> Brancos leves e frescos (Pinot Grigio, Vermentino).</p>
+                        <p style="font-weight: 300;"><strong>Molho branco/queijo:</strong> Brancos encorpados (Chardonnay) ou tintos leves (Pinot Noir).</p>
+                    </div>
+                </div>
+                <div class="massa-card" style="cursor: default; transform: none; box-shadow: var(--shadow);">
+                    <div class="massa-card-content">
+                        <h3 style="font-size: 1.6rem;">Queijos Essenciais</h3>
+                        <p style="font-weight: 300;"><strong>Parmigiano-Reggiano:</strong> O rei. Complexo e umami, ideal para quase tudo.</p>
+                        <p style="font-weight: 300;"><strong>Pecorino Romano:</strong> Salgado e picante, perfeito para Carbonara e Amatriciana.</p>
+                        <p style="font-weight: 300;"><strong>Grana Padano:</strong> Sabor mais suave, ótimo para finalizar pratos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-logo-container">
+            <div class="footer-cta-group">
+                <div class="cta-text">
+                    <span>Inscreva-se</span>
+                    <span class="cta-arrow">→</span>
+                </div>
+                <a href="https://docs.google.com/forms/d/1hEvaQxVyCreY-chDsUa9BymPzhB4d4T9kwYxY_Q7M_w/viewform?ts=688ca928&edit_requested=true" target="_blank" rel="noopener noreferrer">
+                    <img src="logo_startup.png" alt="Logo Startup" class="footer-logo-item">
+                </a>
+            </div>
+            <img src="LogoRedeCalabria.png" alt="Logo Rede Calabria" class="footer-logo-item">
+            <img src="logo_startup01.png" alt="Logo Startup 2" class="footer-logo-item">
+        </div>
+        <p>&copy; 2025 Massas Frescas. Todos os direitos reservados.</p>
+        <p style="font-family: var(--font-logo); font-size: 1.5rem; color: var(--color-red); margin-top: 0.5rem;">Fatto con Amore</p>
+    </footer>
+
+    <div id="recipe-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <div class="modal-body" id="modal-body-content">
+                <!-- Modal content will be injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const massasData = [
+                {
+                    id: 'ravioli',
+                    nome: 'Ravioli de Ricota e Espinafre',
+                    imagem: 'ravioli.png',
+                    dificuldade: 'Médio',
+                    tempo: '90 min',
+                    rendimento: 4,
+                    receita: {
+                        ingredientes: [
+                            { item: 'Farinha de trigo tipo 00', qtd: 400, unidade: 'g' },
+                            { item: 'Ovos grandes', qtd: 4, unidade: 'un' },
+                            { item: 'Ricota fresca', qtd: 500, unidade: 'g' },
+                            { item: 'Espinafre fresco', qtd: 300, unidade: 'g' },
+                            { item: 'Queijo Parmigiano-Reggiano ralado', qtd: 100, unidade: 'g' },
+                            { item: 'Noz-moscada', qtd: 1, unidade: 'pitada' },
+                            { item: 'Sal e pimenta do reino a gosto', qtd: 0, unidade: '' }
+                        ],
+                        processo: [
+                            "Massa: Siga o 'Guia de Produção' para fazer a massa básica.",
+                            "Recheio: Cozinhe o espinafre, esprema bem para retirar toda a água e pique finamente.",
+                            "Misture o espinafre com a ricota, o queijo parmesão, a noz-moscada, sal e pimenta.",
+                            "Montagem: Abra a massa finamente. Distribua pequenas porções do recheio sobre metade da massa.",
+                            "Cubra com a outra metade da massa, pressione para retirar o ar e corte os raviolis.",
+                            "Cozinhe em água fervente com sal por 3-4 minutos ou até boiarem."
+                        ]
+                    },
+                    servir: "Sirva com um simples molho de manteiga e sálvia, polvilhado com mais parmesão. Ideal para um almoço de domingo em família.",
+                    acompanhamento: {
+                        molhos: "Manteiga e sálvia, Molho de tomate fresco, Molho de nozes.",
+                        vinhos: "Pinot Grigio, Chardonnay.",
+                        queijos: "Parmigiano-Reggiano."
+                    }
+                },
+                {
+                    id: 'capeletti',
+                    nome: 'Capeletti in Brodo',
+                    imagem: 'cappelletti.png',
+                    dificuldade: 'Difícil',
+                    tempo: '120 min',
+                    rendimento: 6,
+                    receita: {
+                        ingredientes: [
+                            { item: 'Massa fresca (mesma do ravioli)', qtd: 1, unidade: 'receita' },
+                            { item: 'Carne de porco (lombo)', qtd: 150, unidade: 'g' },
+                            { item: 'Presunto cru', qtd: 100, unidade: 'g' },
+                            { item: 'Mortadela', qtd: 100, unidade: 'g' },
+                            { item: 'Queijo Parmigiano-Reggiano ralado', qtd: 150, unidade: 'g' },
+                            { item: 'Ovo', qtd: 1, unidade: 'un' },
+                            { item: 'Caldo de carne (brodo) de qualidade', qtd: 2, unidade: 'L' }
+                        ],
+                        processo: [
+                            "Recheio: Cozinhe a carne de porco e processe com o presunto e a mortadela até obter uma pasta.",
+                            "Misture a pasta de carnes com o parmesão, o ovo, noz-moscada, sal e pimenta.",
+                            "Montagem: Abra a massa bem fina e corte em quadrados de 3-4 cm.",
+                            "Coloque uma pequena porção de recheio no centro de cada quadrado.",
+                            "Dobre em triângulo, una as duas pontas para formar o capeletti.",
+                            "Cozinhe diretamente no caldo de carne fervente por 5-6 minutos."
+                        ]
+                    },
+                    servir: "Tradicionalmente servido 'in brodo' (no caldo), é um prato reconfortante e cheio de sabor, ideal para dias frios.",
+                    acompanhamento: {
+                        molhos: "Servido exclusivamente no caldo (brodo).",
+                        vinhos: "Lambrusco (tinto frisante).",
+                        queijos: "Parmigiano-Reggiano ralado na hora."
+                    }
+                },
+                {
+                    id: 'talharim',
+                    nome: 'Talharim ao Pesto Genovese',
+                    imagem: 'talharim.png',
+                    dificuldade: 'Fácil',
+                    tempo: '60 min',
+                    rendimento: 4,
+                    receita: {
+                        ingredientes: [
+                            { item: 'Massa fresca (mesma do ravioli)', qtd: 1, unidade: 'receita' },
+                            { item: 'Manjericão fresco', qtd: 50, unidade: 'g' },
+                            { item: 'Pinoli', qtd: 30, unidade: 'g' },
+                            { item: 'Alho', qtd: 2, unidade: 'dentes' },
+                            { item: 'Queijo Parmigiano-Reggiano ralado', qtd: 70, unidade: 'g' },
+                            { item: 'Queijo Pecorino ralado', qtd: 30, unidade: 'g' },
+                            { item: 'Azeite de oliva extra virgem', qtd: 100, unidade: 'ml' }
+                        ],
+                        processo: [
+                            "Massa: Siga o 'Guia de Produção', enrole a massa e corte em tiras de 0.5 cm de largura.",
+                            "Pesto: Em um pilão ou processador, amasse o alho com sal, adicione o pinoli e continue.",
+                            "Adicione as folhas de manjericão e amasse com movimentos rotatórios.",
+                            "Incorpore os queijos e, por fim, o azeite em fio, misturando até obter um molho cremoso.",
+                            "Cozinhe o talharim em água fervente com sal por 2-3 minutos.",
+                            "Misture a massa cozida com o pesto, adicionando um pouco da água do cozimento para diluir."
+                        ]
+                    },
+                    servir: "Um clássico da Ligúria. Sirva com batatas e vagem cozidas junto com a massa, como manda a tradição. Perfeito para uma refeição leve e aromática.",
+                    acompanhamento: {
+                        molhos: "Pesto Genovese, Carbonara, Alfredo.",
+                        vinhos: "Vermentino, Sauvignon Blanc.",
+                        queijos: "Parmigiano-Reggiano, Pecorino."
+                    }
+                },
+                {
+                    id: 'nhoque',
+                    nome: 'Nhoque de Batata ao Sugo',
+                    imagem: 'nhoque.png',
+                    dificuldade: 'Fácil',
+                    tempo: '75 min',
+                    rendimento: 4,
+                    receita: {
+                        ingredientes: [
+                            { item: 'Batatas Asterix', qtd: 1, unidade: 'kg' },
+                            { item: 'Farinha de trigo', qtd: 300, unidade: 'g (aprox.)' },
+                            { item: 'Ovo', qtd: 1, unidade: 'un' },
+                            { item: 'Sal a gosto', qtd: 0, unidade: '' },
+                            { item: 'Tomates pelados', qtd: 800, unidade: 'g' },
+                            { item: 'Cebola', qtd: 1, unidade: 'un' },
+                            { item: 'Manjericão fresco', qtd: 1, unidade: 'maço' }
+                        ],
+                        processo: [
+                            "Nhoque: Cozinhe as batatas com casca, descasque e amasse ainda quentes.",
+                            "Deixe o purê esfriar. Adicione o ovo, sal e a farinha aos poucos, misturando delicadamente (não sove).",
+                            "Faça rolinhos com a massa e corte os nhoques.",
+                            "Cozinhe em água fervente com sal. Estarão prontos quando subirem à superfície.",
+                            "Molho: Refogue a cebola em azeite, junte os tomates e cozinhe em fogo baixo por 30 min. Finalize com sal e manjericão.",
+                            "Sirva os nhoques com o molho e queijo ralado."
+                        ]
+                    },
+                    servir: "O prato do conforto por excelência. A leveza do nhoque contrasta com a intensidade do molho. Tradicionalmente consumido no dia 29 para atrair sorte.",
+                    acompanhamento: {
+                        molhos: "Molho de tomate (Sugo), Bolonhesa, Quatro queijos.",
+                        vinhos: "Merlot, Sangiovese.",
+                        queijos: "Parmesão, Mussarela de búfala."
+                    }
+                },
+            ];
+
+            const galleryGrid = document.querySelector('.gallery-grid');
+            const modal = document.getElementById('recipe-modal');
+            const modalBody = document.getElementById('modal-body-content');
+            const closeModalBtn = document.getElementById('modal-close-btn');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const themeToggle = document.getElementById('theme-toggle');
+
+            const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+            const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+
+            function renderCards(filter = 'all') {
+                galleryGrid.innerHTML = '';
+                const filteredMassas = filter === 'all' 
+                    ? massasData 
+                    : massasData.filter(massa => massa.dificuldade === filter);
+                
+                if (filteredMassas.length === 0) {
+                    galleryGrid.innerHTML = `<p>Nenhuma receita encontrada para este filtro.</p>`;
+                    return;
+                }
+
+                filteredMassas.forEach(massa => {
+                    const card = document.createElement('div');
+                    card.className = 'massa-card';
+                    card.dataset.id = massa.id;
+                    card.innerHTML = `
+                        <img src="${massa.imagem}" alt="${massa.nome}" loading="lazy">
+                        <div class="massa-card-content">
+                            <h3>${massa.nome}</h3>
+                            <div class="massa-card-tags">
+                                <span>${massa.dificuldade}</span>
+                                <span>${massa.tempo}</span>
+                                <span>${massa.rendimento} porções</span>
+                            </div>
+                        </div>
+                    `;
+                    galleryGrid.appendChild(card);
+                });
+            }
+
+            function openModal(id) {
+                const massa = massasData.find(m => m.id === id);
+                if (!massa) return;
+
+                const originalIngredients = JSON.parse(JSON.stringify(massa.receita.ingredientes));
+
+                modalBody.innerHTML = `
+                    <h3>${massa.nome}</h3>
+                    <div class="modal-section">
+                        <h4><span class="modal-icon" role="img" aria-label="Receita">📜</span> Receita Completa</h4>
+                        <div class="portion-calculator">
+                            <label for="portion-input">Calcular para:</label>
+                            <input type="number" id="portion-input" value="${massa.rendimento}" min="1">
+                            <label>porções</label>
+                        </div>
+                        <ul id="ingredient-list">
+                            ${originalIngredients.map(ing => ing.qtd > 0 ? `<li>${ing.qtd} ${ing.unidade} de ${ing.item}</li>` : `<li>${ing.item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="modal-section">
+                        <h4><span class="modal-icon" role="img" aria-label="Produção">👨‍🍳</span> Processo de Produção</h4>
+                        <ol>${massa.receita.processo.map(passo => `<li>${passo}</li>`).join('')}</ol>
+                    </div>
+                    <div class="modal-section">
+                        <h4><span class="modal-icon" role="img" aria-label="Servir">🍽️</span> Modos de Servir</h4>
+                        <p>${massa.servir}</p>
+                    </div>
+                     <div class="modal-section">
+                        <h4><span class="modal-icon" role="img" aria-label="Acompanhamento">🍷</span> Dicas de Acompanhamento</h4>
+                        <p><strong>Molhos Sugeridos:</strong> ${massa.acompanhamento.molhos}</p>
+                        <p><strong>Harmonização com Vinhos:</strong> ${massa.acompanhamento.vinhos}</p>
+                        <p><strong>Queijos Recomendados:</strong> ${massa.acompanhamento.queijos}</p>
+                    </div>
+                `;
+                
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+
+                const portionInput = document.getElementById('portion-input');
+                portionInput.addEventListener('input', () => {
+                    const newPortion = parseInt(portionInput.value) || massa.rendimento;
+                    const oldPortion = massa.rendimento;
+                    const ratio = newPortion / oldPortion;
+                    
+                    const ingredientList = document.getElementById('ingredient-list');
+                    ingredientList.innerHTML = originalIngredients.map(ing => {
+                        if (ing.qtd > 0) {
+                            let newQtd = (ing.qtd * ratio).toFixed(1).replace('.0', '');
+                            return `<li>${newQtd} ${ing.unidade} de ${ing.item}</li>`;
+                        }
+                        return `<li>${ing.item}</li>`;
+                    }).join('');
+                });
+            }
+
+            function closeModal() {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+
+            galleryGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.massa-card');
+                if (card) {
+                    openModal(card.dataset.id);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape") {
+                    closeModal();
+                }
+            });
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderCards(btn.dataset.filter);
+                });
+            });
+            
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    themeToggle.innerHTML = sunIcon;
+                    themeToggle.setAttribute('aria-label', 'Alternar modo claro');
+                } else {
+                    themeToggle.innerHTML = moonIcon;
+                    themeToggle.setAttribute('aria-label', 'Alternar modo noturno');
+                }
+            });
+
+            // Initial render
+            renderCards();
+        });
+    </script>
+
+</body>
+</html>
