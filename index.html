@@ -54,6 +54,11 @@
             --color-light-gray: #3c3c3c;
             --color-text: #F8F7F5;
             --color-text-light: #2a2a2a;
+            --color-text-dark-mode: #222222;
+        }
+
+        .dark-mode .intro-text {
+            color: var(--color-text-dark-mode);
         }
 
         .container {
@@ -231,6 +236,10 @@
             color: var(--color-red);
         }
 
+        body.dark-mode .massa-card h3 {
+            color: var(--color-text);
+        }
+
         .massa-card-tags {
             display: flex;
             flex-wrap: wrap;
@@ -239,6 +248,10 @@
             color: var(--color-green);
             font-family: var(--font-body);
             font-weight: 500;
+        }
+
+        body.dark-mode .massa-card-tags {
+            color: var(--color-text);
         }
         
         .massa-card-tags span {
