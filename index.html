@@ -11,10 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;400;600&family=Rubik:wght@300;400;500&family=Story+Script&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-red: #CD212A;
-            --color-green: #009246;
-            --color-white: #F8F7F5;
-            --color-dark: #2a2a2a;
+            --color-red: #D93A3E;
+            --color-green: #3A8C5A;
+            --color-white: #F2F2F2;
+            --color-dark: #262626;
             --color-light-gray: #ffffff;
             --color-text: #333;
             --color-text-light: #fff;
@@ -38,7 +38,9 @@
         body {
             font-family: var(--font-body);
             color: var(--color-text);
-            background-color: var(--color-white);
+            background-image: url('fundo_suave.png');
+            background-size: cover;
+            background-attachment: fixed;
             line-height: 1.7;
             transition: background-color 0.3s, color 0.3s;
         }
@@ -89,7 +91,7 @@
         }
 
         .header {
-            background-color: var(--color-white);
+            background-color: rgba(255, 255, 255, 0.8);
             text-align: center;
             padding: 3rem 1rem;
             position: relative;
@@ -100,12 +102,9 @@
             margin: 0 auto;
         }
 
-        .logo {
-            font-family: var(--font-logo);
-            font-size: 4.5rem;
-            font-weight: normal;
-            color: var(--color-red);
-            margin-bottom: 1rem;
+        .logo-img {
+            max-width: 300px;
+            margin: 0 auto 1rem auto;
         }
 
         .intro-text {
@@ -536,7 +535,7 @@
 
     <header class="header">
         <div class="header-content">
-            <h1 class="logo">Massas Frescas Italianas</h1>
+                        <img src="logo_tr.png" alt="Massas Frescas Italianas" class="logo-img">
             <p class="intro-text">Uma viagem autêntica pela arte da pasta fatta in casa. Descubra receitas, segredos e a paixão que transforma ingredientes simples em pratos inesquecíveis.</p>
         </div>
         <button id="theme-toggle" aria-label="Alternar modo noturno">
