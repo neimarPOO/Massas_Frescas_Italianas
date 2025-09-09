@@ -436,6 +436,18 @@
         }
         
         /* Responsiveness */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            h2 {
+                font-size: 2.5rem;
+            }
+            .modal-body h3 {
+                font-size: 2.2rem;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding-bottom: 60px;
@@ -445,9 +457,8 @@
                 padding: 2rem 1rem;
             }
 
-            .logo {
-                font-size: 3rem;
-                margin-bottom: 0.5rem;
+            .logo-img {
+                max-width: 300px;
             }
 
             h2 {
@@ -515,8 +526,8 @@
         }
 
         @media (max-width: 480px) {
-            .logo {
-                font-size: 2.5rem;
+            .logo-img {
+                max-width: 250px;
             }
             .nav-link {
                 font-size: 0.7rem;
