@@ -46,9 +46,13 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        
-
-        
+        body.dark-mode {
+            --color-white: #2a2a2a;
+            --color-dark: #F8F7F5;
+            --color-light-gray: #3c3c3c;
+            --color-text: #F8F7F5;
+            --color-text-light: #2a2a2a;
+        }
 
         .container {
             width: 90%;
@@ -69,8 +73,6 @@
             position: relative;
             color: var(--color-red);
         }
-
-        
 
         h2::after {
             content: '';
@@ -142,8 +144,6 @@
             position: relative;
             padding: 0.5rem 0;
         }
-
-        
         
         .nav-link::after {
             content: '';
@@ -229,8 +229,6 @@
             color: var(--color-red);
         }
 
-        
-
         .massa-card-tags {
             display: flex;
             flex-wrap: wrap;
@@ -240,8 +238,6 @@
             font-family: var(--font-body);
             font-weight: 500;
         }
-
-        
         
         .massa-card-tags span {
             background-color: rgba(58, 140, 90, 0.1);
@@ -267,7 +263,10 @@
             font-weight: 500;
             transition: all 0.3s;
         }
-        
+        body.dark-mode .filter-btn {
+            border-color: #555;
+            color: #ccc;
+        }
         .filter-btn:hover {
             border-color: var(--color-green);
             color: var(--color-green);
@@ -354,7 +353,9 @@
             margin-right: 10px;
             font-size: 1.8rem;
         }
-        
+        body.dark-mode .modal-section h4 {
+            border-color: #444;
+        }
         
         .modal-section ul, .modal-section ol {
             padding-left: 25px;
@@ -374,7 +375,9 @@
             padding: 1rem;
             border-radius: 8px;
         }
-        
+        body.dark-mode .portion-calculator {
+            background: #333;
+        }
         
         .portion-calculator label {
             font-weight: 500;
@@ -800,6 +803,130 @@
             const closeModalBtn = document.getElementById('modal-close-btn');
             const filterBtns = document.querySelectorAll('.filter-btn');
             
+
+            function renderCards(filter = 'all') {
+                galleryGrid.innerHTML = '';
+                const filteredMassas = filter === 'all' 
+                    ? massasData 
+                    : massasData.filter(massa => massa.dificuldade === filter);
+                
+                if (filteredMassas.length === 0) {
+                    galleryGrid.innerHTML = `<p>Nenhuma receita encontrada para este filtro.</p>`;
+                    return;
+                }
+
+                filteredMassas.forEach(massa => {
+                    const card = document.createElement('div');
+                    card.className = 'massa-card';
+                    card.dataset.id = massa.id;
+                    card.innerHTML = `
+                        <img src="${massa.imagem}" alt="${massa.nome}" loading="lazy">
+                        <div class="massa-card-content">
+                            <h3>${massa.nome}</h3>
+                            <div class="massa-card-tags">
+                                <span>${massa.dificuldade}</span>
+                                <span>${massa.tempo}</span>
+                                <span>${massa.rendimento} porções</span>
+                            </div>
+                        </div>
+                    `;
+                    galleryGrid.appendChild(card);
+                });
+            }
+
+            function openModal(id) {
+                const massa = massasData.find(m => m.id === id);
+                if (!massa) return;
+
+                const originalIngredients = JSON.parse(JSON.stringify(massa.receita.ingredientes));
+
+                modalBody.innerHTML = `
+                    <h3>${massa.nome}</h3>
+                    <div class="modal-section">
+                        <h4><span class="modal-icon" role="img" aria-label="Receita">📜</span> Receita Completa</h4>
+                        <div class="portion-calculator">
+                            <label for="portion-input">Calcular para:</label>
+                            <input type="number" id="portion-input" value="${massa.rendimento}" min="1">
+                            <label>porções</label>
+                        </div>
+                        <ul id="ingredient-list">
+                            ${originalIngredients.map(ing => ing.qtd > 0 ? `<li>${ing.qtd} ${ing.unidade} de ${ing.item}</li>` : `<li>${ing.item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="modal-section">
+                        <h4><span class="modal-icon" role="img" aria-label="Produção">👨‍🍳</span> Processo de Produção</h4>
+                        <ol>${massa.receita.processo.map(passo => `<li>${passo}</li>`).join('')}</ol>
+                    </div>
+                    <div class="modal-section">
+                        <h4><span class="modal-icon" role="img" aria-label="Servir">🍽️</span> Modos de Servir</h4>
+                        <p>${massa.servir}</p>
+                    </div>
+                     <div class="modal-section">
+                        <h4><span class="modal-icon" role="img" aria-label="Acompanhamento">🍷</span> Dicas de Acompanhamento</h4>
+                        <p><strong>Molhos Sugeridos:</strong> ${massa.acompanhamento.molhos}</p>
+                        <p><strong>Harmonização com Vinhos:</strong> ${massa.acompanhamento.vinhos}</p>
+                        <p><strong>Queijos Recomendados:</strong> ${massa.acompanhamento.queijos}</p>
+                    </div>
+                `;
+                
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+
+                const portionInput = document.getElementById('portion-input');
+                portionInput.addEventListener('input', () => {
+                    const newPortion = parseInt(portionInput.value) || massa.rendimento;
+                    const oldPortion = massa.rendimento;
+                    const ratio = newPortion / oldPortion;
+                    
+                    const ingredientList = document.getElementById('ingredient-list');
+                    ingredientList.innerHTML = originalIngredients.map(ing => {
+                        if (ing.qtd > 0) {
+                            let newQtd = (ing.qtd * ratio).toFixed(1).replace('.0', '');
+                            return `<li>${newQtd} ${ing.unidade} de ${ing.item}</li>`;
+                        }
+                        return `<li>${ing.item}</li>`;
+                    }).join('');
+                });
+            }
+
+            function closeModal() {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+
+            galleryGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.massa-card');
+                if (card) {
+                    openModal(card.dataset.id);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape") {
+                    closeModal();
+                }
+            });
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderCards(btn.dataset.filter);
+                });
+            });
+            
+            
+
+            // Initial render
+            renderCards();
+        });
+    </script>
 
 </body>
 </html>
