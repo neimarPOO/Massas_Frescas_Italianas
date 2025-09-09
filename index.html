@@ -46,20 +46,9 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        body.dark-mode {
-            background-image: none;
-            background-color: #222222;
-            --color-white: #F8F7F5;
-            --color-dark: #F8F7F5;
-            --color-light-gray: #3c3c3c;
-            --color-text: #F8F7F5;
-            --color-text-light: #2a2a2a;
-            --color-text-dark-mode: #222222;
-        }
+        
 
-        .dark-mode .intro-text {
-            color: var(--color-text-dark-mode);
-        }
+        
 
         .container {
             width: 90%;
@@ -81,9 +70,7 @@
             color: var(--color-red);
         }
 
-        body.dark-mode h2 {
-            color: var(--color-text);
-        }
+        
 
         h2::after {
             content: '';
@@ -156,9 +143,7 @@
             padding: 0.5rem 0;
         }
 
-        body.dark-mode .nav-link {
-            color: var(--color-text);
-        }
+        
         
         .nav-link::after {
             content: '';
@@ -244,9 +229,7 @@
             color: var(--color-red);
         }
 
-        body.dark-mode .massa-card h3 {
-            color: var(--color-text);
-        }
+        
 
         .massa-card-tags {
             display: flex;
@@ -258,9 +241,7 @@
             font-weight: 500;
         }
 
-        body.dark-mode .massa-card-tags {
-            color: var(--color-text);
-        }
+        
         
         .massa-card-tags span {
             background-color: rgba(58, 140, 90, 0.1);
@@ -286,10 +267,7 @@
             font-weight: 500;
             transition: all 0.3s;
         }
-        body.dark-mode .filter-btn {
-            border-color: #555;
-            color: #ccc;
-        }
+        
         .filter-btn:hover {
             border-color: var(--color-green);
             color: var(--color-green);
@@ -376,9 +354,7 @@
             margin-right: 10px;
             font-size: 1.8rem;
         }
-        body.dark-mode .modal-section h4 {
-            border-color: #444;
-        }
+        
         
         .modal-section ul, .modal-section ol {
             padding-left: 25px;
@@ -398,9 +374,7 @@
             padding: 1rem;
             border-radius: 8px;
         }
-        body.dark-mode .portion-calculator {
-            background: #333;
-        }
+        
         
         .portion-calculator label {
             font-weight: 500;
@@ -573,9 +547,7 @@
                         <img src="logo_tr.png" alt="Massas Frescas Italianas" class="logo-img">
             <p class="intro-text">Uma viagem autêntica pela arte da pasta fatta in casa. Descubra receitas, segredos e a paixão que transforma ingredientes simples em pratos inesquecíveis.</p>
         </div>
-        <button id="theme-toggle" aria-label="Alternar modo noturno">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
+        
     </header>
 
     <nav class="nav">
@@ -827,143 +799,7 @@
             const modalBody = document.getElementById('modal-body-content');
             const closeModalBtn = document.getElementById('modal-close-btn');
             const filterBtns = document.querySelectorAll('.filter-btn');
-            const themeToggle = document.getElementById('theme-toggle');
-
-            const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
-            const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-
-            function renderCards(filter = 'all') {
-                galleryGrid.innerHTML = '';
-                const filteredMassas = filter === 'all' 
-                    ? massasData 
-                    : massasData.filter(massa => massa.dificuldade === filter);
-                
-                if (filteredMassas.length === 0) {
-                    galleryGrid.innerHTML = `<p>Nenhuma receita encontrada para este filtro.</p>`;
-                    return;
-                }
-
-                filteredMassas.forEach(massa => {
-                    const card = document.createElement('div');
-                    card.className = 'massa-card';
-                    card.dataset.id = massa.id;
-                    card.innerHTML = `
-                        <img src="${massa.imagem}" alt="${massa.nome}" loading="lazy">
-                        <div class="massa-card-content">
-                            <h3>${massa.nome}</h3>
-                            <div class="massa-card-tags">
-                                <span>${massa.dificuldade}</span>
-                                <span>${massa.tempo}</span>
-                                <span>${massa.rendimento} porções</span>
-                            </div>
-                        </div>
-                    `;
-                    galleryGrid.appendChild(card);
-                });
-            }
-
-            function openModal(id) {
-                const massa = massasData.find(m => m.id === id);
-                if (!massa) return;
-
-                const originalIngredients = JSON.parse(JSON.stringify(massa.receita.ingredientes));
-
-                modalBody.innerHTML = `
-                    <h3>${massa.nome}</h3>
-                    <div class="modal-section">
-                        <h4><span class="modal-icon" role="img" aria-label="Receita">📜</span> Receita Completa</h4>
-                        <div class="portion-calculator">
-                            <label for="portion-input">Calcular para:</label>
-                            <input type="number" id="portion-input" value="${massa.rendimento}" min="1">
-                            <label>porções</label>
-                        </div>
-                        <ul id="ingredient-list">
-                            ${originalIngredients.map(ing => ing.qtd > 0 ? `<li>${ing.qtd} ${ing.unidade} de ${ing.item}</li>` : `<li>${ing.item}</li>`).join('')}
-                        </ul>
-                    </div>
-                    <div class="modal-section">
-                        <h4><span class="modal-icon" role="img" aria-label="Produção">👨‍🍳</span> Processo de Produção</h4>
-                        <ol>${massa.receita.processo.map(passo => `<li>${passo}</li>`).join('')}</ol>
-                    </div>
-                    <div class="modal-section">
-                        <h4><span class="modal-icon" role="img" aria-label="Servir">🍽️</span> Modos de Servir</h4>
-                        <p>${massa.servir}</p>
-                    </div>
-                     <div class="modal-section">
-                        <h4><span class="modal-icon" role="img" aria-label="Acompanhamento">🍷</span> Dicas de Acompanhamento</h4>
-                        <p><strong>Molhos Sugeridos:</strong> ${massa.acompanhamento.molhos}</p>
-                        <p><strong>Harmonização com Vinhos:</strong> ${massa.acompanhamento.vinhos}</p>
-                        <p><strong>Queijos Recomendados:</strong> ${massa.acompanhamento.queijos}</p>
-                    </div>
-                `;
-                
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-
-                const portionInput = document.getElementById('portion-input');
-                portionInput.addEventListener('input', () => {
-                    const newPortion = parseInt(portionInput.value) || massa.rendimento;
-                    const oldPortion = massa.rendimento;
-                    const ratio = newPortion / oldPortion;
-                    
-                    const ingredientList = document.getElementById('ingredient-list');
-                    ingredientList.innerHTML = originalIngredients.map(ing => {
-                        if (ing.qtd > 0) {
-                            let newQtd = (ing.qtd * ratio).toFixed(1).replace('.0', '');
-                            return `<li>${newQtd} ${ing.unidade} de ${ing.item}</li>`;
-                        }
-                        return `<li>${ing.item}</li>`;
-                    }).join('');
-                });
-            }
-
-            function closeModal() {
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-            }
-
-            galleryGrid.addEventListener('click', (e) => {
-                const card = e.target.closest('.massa-card');
-                if (card) {
-                    openModal(card.dataset.id);
-                }
-            });
-
-            closeModalBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === "Escape") {
-                    closeModal();
-                }
-            });
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    renderCards(btn.dataset.filter);
-                });
-            });
             
-            themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                if (document.body.classList.contains('dark-mode')) {
-                    themeToggle.innerHTML = sunIcon;
-                    themeToggle.setAttribute('aria-label', 'Alternar modo claro');
-                } else {
-                    themeToggle.innerHTML = moonIcon;
-                    themeToggle.setAttribute('aria-label', 'Alternar modo noturno');
-                }
-            });
-
-            // Initial render
-            renderCards();
-        });
-    </script>
 
 </body>
 </html>
