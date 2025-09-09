@@ -81,6 +81,10 @@
             color: var(--color-red);
         }
 
+        body.dark-mode h2 {
+            color: var(--color-text);
+        }
+
         h2::after {
             content: '';
             display: block;
@@ -150,6 +154,10 @@
             transition: color 0.3s;
             position: relative;
             padding: 0.5rem 0;
+        }
+
+        body.dark-mode .nav-link {
+            color: var(--color-text);
         }
         
         .nav-link::after {
